@@ -15,49 +15,49 @@
         <h1 class="">Weather Dashboard</h1>
         <!-- <p>You can call by city name or city name, state code and country code. Please note that searching by states available only for the USA locations. -->
         </p>
-      </header>
-  
-      <main class="main-page">
-        <div class="row">
-            <div class="col s12 m4">
-              <div class="card">
-                <div id="multi-weather-img" class="card-image waves-effect waves-block waves-light">
-                    <img class="activator" src="./assets/images/weather.jpeg" alt="diagonal strips of multiple weather photos">
-                </div>
-                <div id="search" class="card-content">
-                    <h3 class="card-title activator">Search by City</h3>
-                    <p>Click on the above image to search for the current weather by city.</p>
-                </div>
-                <div id="search-hidden" class="card-reveal">
-                    <h3 class="card-title activator">Search by City</h3>
-                    <form id="city-form" class="card-body">
-                        <label class="form-label" for="city">City</label>
-                        <input
-                        name="city"
-                        id="city"
-                        type="text"
-                        autofocus="true"
-                        class="form-input"
-                        />
-                        <button type="submit" class="btn light-blue darken-4">Search</button>
-                    </form>
-                </div>
-              </div>
-      
-              <div class="">
-                <div id="recent-search-btns" class="card-body"></div>
-                <p>The Buttons will go here</p>
-              </div>
+    </header>
+
+    <main class="main-page">
+    <div class="row">
+        <div class="col s12 m4">
+            <div class="card">
+            <div id="multi-weather-img" class="card-image waves-effect waves-block waves-light">
+                <img class="activator" src="./assets/images/weather.jpeg" alt="diagonal strips of multiple weather photos">
             </div>
-      
-            <div class="col s12 m8">
-              <h2 class="subtitle">Today's Weather</h2>
-              <div id="repos-container" class="list-group"></div>
+            <div id="search" class="card-content">
+                <h3 class="card-title activator">Search by City</h3>
+                <p>Click on the above image to search for the current weather by city.</p>
+            </div>
+            <div id="search-hidden" class="card-reveal">
+                <h3 class="card-title activator">Search by City</h3>
+                <form id="city-form" class="card-body">
+                    <label class="form-label" for="city">City</label>
+                    <input
+                    name="city"
+                    id="city"
+                    type="text"
+                    autofocus="true"
+                    class="form-input"
+                    />
+                    <button type="submit" class="btn light-blue darken-4">Search</button>
+                </form>
+            </div>
+            </div>
+            
+            <div id="search-history" class="search-history-btns">
+                <!-- Template for buttons to dynamically display -->
+                <!-- <button id="search-history-btn" class="waves-effect waves-light btn col s12" data-city=""></button> -->
             </div>
         </div>
-      </main>
-      <!-- Materialize JS Link -->
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-      <script src="./assets/js/script.js"></script>
+        <div class="col s12 m8">
+            <h2 class="subtitle">Today's Weather</h2>
+            <div id="repos-container" class="list-group"></div>
+        </div>
+    </div>
+    </main>
+
+    <!-- Materialize JS Link -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="./assets/js/script.js"></script>
 </body>
 </html>
