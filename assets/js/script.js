@@ -1,10 +1,23 @@
 var cityFormEl = document.querySelector("#city-form");
-var cityFormEl = document.querySelector;
-var getLocation = function () {};
+var searchHistoryEl = document.querySelector("#search-history");
 
-var getWeatherData = function () {
+// var getLocation = function (event) {
+//   var textInput = document.querySelector("#city-input").value.trim;
+
+//   event.preventDefault();
+// };
+
+$("#city-form").submit(function (event) {
+  var cityInput = $("#city-input").val().trim();
+  getWeatherData(cityInput);
+  event.preventDefault();
+});
+
+var getWeatherData = function (city) {
   var apiUrl =
-    "http://api.openweathermap.org/data/2.5/weather?q=miami&appid=43cdeb3bdb5d7232fb98c9ed196e3be8";
+    "http://api.openweathermap.org/data/2.5/weather?q=" +
+    city +
+    "&appid=43cdeb3bdb5d7232fb98c9ed196e3be8";
 
   fetch(apiUrl)
     .then(function (response) {
@@ -22,4 +35,5 @@ var getWeatherData = function () {
     });
 };
 
-getWeatherData();
+// getWeatherData();
+// cityFormEl.addEventListener("submit", getLocation());
