@@ -43,10 +43,9 @@ h1 {
   margin: 0;
 }
 
-.weather-detail img {
-  width: 85px;
-  height: auto;
-  margin: 0;
+img .weather-detail .main {
+  margin-right: 0;
+  /* need to display img right */
 }
 
 #weather-data-info {
@@ -65,3 +64,15 @@ h1 {
 .btn {
   background-color: #01579b;
 }
+
+/* forcast results styling start */
+div .forecast-card {
+  padding: 0;
+  font-size: 12px;
+}
+
+.card .card-content {
+  padding: 12px;
+}
+
+/* forcast results styling start */

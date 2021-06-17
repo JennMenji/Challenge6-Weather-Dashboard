@@ -4,6 +4,7 @@ var cities = [];
 // get the city
 // store into local storage
 
+// function to get today's Weather Data
 var getWeatherData = function (city) {
   var apiUrl =
     "http://api.openweathermap.org/data/2.5/weather?q=" +
@@ -49,6 +50,7 @@ var displayWeatherData = function (cityData) {
   var iconUrl =
     "http://openweathermap.org/img/wn/" + getWeatherIconId + "@2x.png";
   var weatherIcon = $("<img>").attr("src", iconUrl);
+  weatherIcon.addClass("weather-detail main");
   $("#weather-data-main").append(weatherIcon);
 
   // append Description
@@ -80,6 +82,34 @@ var displayWeatherData = function (cityData) {
   //   var uvIndex = $("<span>").text("UV Index: " + getUvIndex);
   //   uvIndex.addClass("weather-detail");
   //   $("#weather-data-info").append(uvIndex);
+};
+
+// function to get 5 Day Forecast
+var getForecastData = function (city) {
+  var apiUrl =
+    "http://api.openweathermap.org/data/2.5/forecast?q=" +
+    city +
+    "&units=imperial&appid=43cdeb3bdb5d7232fb98c9ed196e3be8";
+
+  fetch(apiUrl)
+    .then(function (response) {
+      //   check to see if response is ok
+      if (response.ok) {
+        return response.json().then(function (data) {
+          displayForecastData(data);
+        });
+      } else {
+        alert("There is an error retrieving Weather Data");
+      }
+    })
+    .catch(function () {
+      alert("Unable to connect");
+    });
+};
+
+// function to display Forcast data
+var displayForecastData = function (forcastData) {
+  console.log(forcastData);
 };
 
 var createCityBtns = function (savedCityName, cityIndex) {
@@ -114,6 +144,7 @@ var loadSavedCities = function () {
 $("#city-form").submit(function (event) {
   var cityInput = $("#city-input").val().trim();
   getWeatherData(cityInput);
+  getForecastData(cityInput);
   saveCities(cityInput);
   //   createCityBtns(cityInput);
 
