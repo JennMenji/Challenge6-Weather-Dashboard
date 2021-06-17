@@ -25,12 +25,8 @@ h1 {
 }
 
 #city-input:focus {
-  border-bottom: 1px solid #fdd835;
-  box-shadow: 0 1px 0 0 #fdd835;
-}
-
-#weather-data {
-  text-align: right;
+  border-bottom: 1px solid #ffc107;
+  box-shadow: 0 1px 0 0 #ffc107;
 }
 
 .weather-detail {
@@ -38,12 +34,34 @@ h1 {
   margin: 0;
 }
 
+.main {
+  text-align: right;
+}
+
 .city-name {
   font-size: 75px;
   margin: 0;
 }
 
-.icon {
-  width: 230px;
+.weather-detail img {
+  width: 85px;
   height: auto;
+  margin: 0;
+}
+
+#weather-data-info {
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+#city-btn {
+  margin: 5px;
+}
+
+#city-btn:focus {
+  background-color: #ffc107;
+}
+
+.btn {
+  background-color: #01579b;
 }
