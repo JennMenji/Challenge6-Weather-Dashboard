@@ -1,12 +1,6 @@
 var cityFormEl = document.querySelector("#city-form");
 var searchHistoryEl = document.querySelector("#search-history");
 
-// var getLocation = function (event) {
-//   var textInput = document.querySelector("#city-input").value.trim;
-
-//   event.preventDefault();
-// };
-
 $("#city-form").submit(function (event) {
   var cityInput = $("#city-input").val().trim();
   getWeatherData(cityInput);
@@ -37,14 +31,46 @@ var getWeatherData = function (city) {
 };
 
 var displayWeatherData = function (cityData) {
-  // append City Name
-  var cityName = cityData.name;
-  $(".city-name").text(cityName);
+  $("#weather-data").html("");
+  $("#weather-icon").html("");
 
-  console.log(cityData.weather.icon);
-  console.log(cityData.main.temp + " F");
-  console.log(cityData.main.humidity);
-  console.log(cityData.wind.speed + " mph");
+  // append City Name
+  var getCityName = cityData.name;
+  var cityName = $("<h2>").text(getCityName);
+  cityName.addClass("weather-detail city-name");
+  $("#weather-data").append(cityName);
+
+  //   append Date
+  var getDate = moment().format("MMMM DD, YYYY");
+  var date = $("<h4>").text(getDate);
+  date.addClass("weather-detail date");
+  $("#weather-data").append(date);
+
+  // append Temp
+  var getCityTemp = cityData.main.temp;
+  var cityTemp = $("<span>").text("Temperature: " + getCityTemp + " \u00B0F");
+  cityTemp.addClass("weather-detail");
+  $("#weather-data").append(cityTemp);
+
+  // append Humidity
+  var getHumidity = cityData.main.humidity;
+  var humidity = $("<span>").text("Humidity: " + getHumidity + "%");
+  humidity.addClass("weather-detail");
+  $("#weather-data").append(humidity);
+
+  // append Wind Speed
+  var getWindSpeed = cityData.wind.speed;
+  var windSpeed = $("<span>").text("Wind Speed: " + getWindSpeed + " MPH");
+  windSpeed.addClass("weather-detail");
+  $("#weather-data").append(windSpeed);
+
+  //   //   append Weather Icon
+  //   var getWeatherIcon = cityData.weather;
+  //   console.log(weatherIcon);
+  //   var weatherIcon = $("<img>");
+  //   weatherIcon.setAttr("src", getWeatherIcon);
+  //   weatherIcon.addClass("icon");
+  //   weatherIconEl.appendChild(weatherIcon);
 };
 
 // getWeatherData();

@@ -9,6 +9,10 @@ h3,
 h4,
 h5 {
   font-family: "Bebas Neue", cursive;
+}
+
+h1 {
+  font-size: 85px;
   text-align: center;
 }
 
@@ -23,4 +27,23 @@ h5 {
 #city:focus {
   border-bottom: 1px solid #fdd835;
   box-shadow: 0 1px 0 0 #fdd835;
+}
+
+#weather-data {
+  text-align: right;
+}
+
+.weather-detail {
+  display: block;
+  margin: 0;
+}
+
+.city-name {
+  font-size: 75px;
+  margin: 0;
+}
+
+.icon {
+  width: 230px;
+  height: auto;
 }
