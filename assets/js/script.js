@@ -17,7 +17,7 @@ var getWeatherData = function (city) {
   var apiUrl =
     "http://api.openweathermap.org/data/2.5/weather?q=" +
     city +
-    "&appid=43cdeb3bdb5d7232fb98c9ed196e3be8";
+    "&units=imperial&appid=43cdeb3bdb5d7232fb98c9ed196e3be8";
 
   fetch(apiUrl)
     .then(function (response) {
@@ -25,6 +25,7 @@ var getWeatherData = function (city) {
       if (response.ok) {
         return response.json().then(function (data) {
           console.log(data);
+          displayWeatherData(data);
         });
       } else {
         alert("There is an error retrieving Weather Data");
@@ -33,6 +34,17 @@ var getWeatherData = function (city) {
     .catch(function () {
       alert("Unable to connect");
     });
+};
+
+var displayWeatherData = function (cityData) {
+  // append City Name
+  var cityName = cityData.name;
+  $(".city-name").text(cityName);
+
+  console.log(cityData.weather.icon);
+  console.log(cityData.main.temp + " F");
+  console.log(cityData.main.humidity);
+  console.log(cityData.wind.speed + " mph");
 };
 
 // getWeatherData();
