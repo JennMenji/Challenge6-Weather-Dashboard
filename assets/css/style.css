@@ -1,0 +1,26 @@
+body {
+  font-family: "Lato", sans-serif;
+  margin: 0 50px 0 50px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: "Bebas Neue", cursive;
+  text-align: center;
+}
+
+.card .card-content .card-title {
+  display: block;
+  line-height: 32px;
+  margin-bottom: 8px;
+  margin-top: 0px;
+  text-align: left;
+}
+
+#city:focus {
+  border-bottom: 1px solid #fdd835;
+  box-shadow: 0 1px 0 0 #fdd835;
+}
