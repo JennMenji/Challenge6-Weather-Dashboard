@@ -28,6 +28,19 @@ var getWeatherData = function (city) {
     });
 };
 
+// // function to get UV Index
+// var getUv = function (weatherData) {
+//   var lat = weatherData.coord.lat;
+//   var lon = weatherData.coord.lon
+
+//   var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" lat&lon={lon}&exclude={part}&appid=43cdeb3bdb5d7232fb98c9ed196e3be8"
+//   fetch
+//   //   var getUvIndex = cityData.???;
+//   //   var uvIndex = $("<span>").text("UV Index: " + getUvIndex);
+//   //   uvIndex.addClass("weather-detail");
+//   //   $("#weather-data-info").append(uvIndex);"
+// };
+
 // function to display weather data
 var displayWeatherData = function (cityData) {
   $("#weather-data-main").html("");
@@ -46,12 +59,16 @@ var displayWeatherData = function (cityData) {
   $("#weather-data-main").append(date);
 
   //   append Weather Icon
+  var imgDiv = $("<div>");
+  imgDiv.addClass("icon-img");
+  $("#weather-data-main").append(imgDiv);
+
   var getWeatherIconId = cityData.weather[0].icon;
   var iconUrl =
     "http://openweathermap.org/img/wn/" + getWeatherIconId + "@2x.png";
   var weatherIcon = $("<img>").attr("src", iconUrl);
   weatherIcon.addClass("weather-detail main");
-  $("#weather-data-main").append(weatherIcon);
+  $(".icon-img").append(weatherIcon);
 
   // append Description
   var getDescription = cityData.weather[0].description;
@@ -76,12 +93,6 @@ var displayWeatherData = function (cityData) {
   var windSpeed = $("<span>").text("Wind Speed: " + getWindSpeed + " MPH");
   windSpeed.addClass("weather-detail");
   $("#weather-data-info").append(windSpeed);
-
-  // append UV Index
-  //   var getUvIndex = cityData.???;
-  //   var uvIndex = $("<span>").text("UV Index: " + getUvIndex);
-  //   uvIndex.addClass("weather-detail");
-  //   $("#weather-data-info").append(uvIndex);
 };
 
 // function to get 5 Day Forecast
@@ -115,8 +126,14 @@ var displayForecastData = function (forcastData) {
 var createCityBtns = function (savedCityName, cityIndex) {
   var cityBtn = document.createElement("button");
   cityBtn.textContent = savedCityName;
-  cityBtn.classList.add("waves-effect", "waves-light", "btn", "col", "s12");
-  cityBtn.setAttribute("id", "city-btn");
+  cityBtn.classList.add(
+    "city-btn",
+    "waves-effect",
+    "waves-light",
+    "btn",
+    "col",
+    "s12"
+  );
   cityBtn.setAttribute("data-city", cityIndex);
   cityBtn.setAttribute("type", "button");
   searchHistoryEl.appendChild(cityBtn);
@@ -124,7 +141,10 @@ var createCityBtns = function (savedCityName, cityIndex) {
 
 var saveCities = function (city) {
   cities.push(city);
-  localStorage.setItem("cities", JSON.stringify(cities));
+
+  const filteredArr = cities.filter((item, i, arr) => arr.indexOf(item) === i);
+
+  localStorage.setItem("cities", JSON.stringify(filteredArr));
 };
 
 var loadSavedCities = function () {
@@ -153,15 +173,17 @@ $("#city-form").submit(function (event) {
 });
 
 // to get weather data based on search history buttons
-// $("#search-history").click("button", function () {
-//   var selectedCity = $(this).attr("data-city");
-//   testing(selectedCity);
-//   //   var citySelected = $("#city-btn").val().trim();
-//   //   getWeatherData(cityInput);
-// });
+$("#search-history").on("click", ".city-btn", function (e) {
+  console.log(e.target.outerText);
 
-// var testing = function (city) {
-//   console.log(city);
-// };
+  //   var selectedCity = $(this).attr("data-city");
+  //   testing(selectedCity);
+  //   var citySelected = $("#city-btn").val().trim();
+  //   getWeatherData(cityInput);
+});
+
+var testing = function (city) {
+  console.log(city);
+};
 
 loadSavedCities();

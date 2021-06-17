@@ -43,8 +43,9 @@ h1 {
   margin: 0;
 }
 
-img .weather-detail .main {
+img {
   margin-right: 0;
+  /* text-align: end; */
   /* need to display img right */
 }
 
@@ -53,7 +54,7 @@ img .weather-detail .main {
   font-size: 18px;
 }
 
-#city-btn {
+.city-btn {
   margin: 5px;
 }
 
