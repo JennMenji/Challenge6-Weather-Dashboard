@@ -24,7 +24,7 @@ h1 {
   text-align: left;
 }
 
-#city:focus {
+#city-input:focus {
   border-bottom: 1px solid #fdd835;
   box-shadow: 0 1px 0 0 #fdd835;
 }

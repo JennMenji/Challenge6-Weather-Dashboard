@@ -1,11 +1,27 @@
 var cityFormEl = document.querySelector("#city-form");
 var searchHistoryEl = document.querySelector("#search-history");
+var cities = [];
+// get the city
+// store into local storage
 
 $("#city-form").submit(function (event) {
   var cityInput = $("#city-input").val().trim();
   getWeatherData(cityInput);
+  createCityBtns(cityInput);
+
   event.preventDefault();
+  document.querySelector("#city-form").reset();
 });
+
+// var saveCities = function () {
+//   localStorage.setItem("cities", JSON.stringify(cities));
+// };
+
+// var loadSavedCities = function () {
+//   cities = JSON.parse(localStorage.getItem("cit"));
+
+//   console.log(cities);
+// };
 
 var getWeatherData = function (city) {
   var apiUrl =
@@ -28,6 +44,13 @@ var getWeatherData = function (city) {
     .catch(function () {
       alert("Unable to connect");
     });
+};
+
+var createCityBtns = function (cities) {
+  $("#search-history").html("");
+  var cityBtn = $("<button>").text(cities);
+  cityBtn.addClass("waves-effect waves-light btn col s12");
+  $("#search-history").append(cityBtn);
 };
 
 var displayWeatherData = function (cityData) {
@@ -63,6 +86,8 @@ var displayWeatherData = function (cityData) {
   var windSpeed = $("<span>").text("Wind Speed: " + getWindSpeed + " MPH");
   windSpeed.addClass("weather-detail");
   $("#weather-data").append(windSpeed);
+
+  //   loadSavedCities();
 
   //   //   append Weather Icon
   //   var getWeatherIcon = cityData.weather;
