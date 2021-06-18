@@ -17,7 +17,7 @@ h1 {
 }
 
 .card .card-content .card-title {
-  display: block;
+  /* display: block; */
   line-height: 32px;
   margin-bottom: 8px;
   margin-top: 0px;
@@ -29,42 +29,20 @@ h1 {
   box-shadow: 0 1px 0 0 #ffc107;
 }
 
-.weather-detail {
-  display: block;
-  margin: 0;
-}
-
-.main {
-  text-align: right;
-}
-
-.city-name {
-  font-size: 75px;
-  margin: 0;
-}
-
-img {
-  margin-right: 0;
-  /* text-align: end; */
-  /* need to display img right */
-}
-
-#weather-data-info {
-  margin-top: 10px;
-  font-size: 18px;
+/* button styling start */
+.btn {
+  background-color: #01579b;
 }
 
 .city-btn {
   margin: 5px;
-}
-
-#city-btn:focus {
-  background-color: #ffc107;
-}
-
-.btn {
   background-color: #01579b;
 }
+
+.city-btn:focus {
+  background-color: #ffc107;
+}
+/* button styling end */
 
 /* forcast results styling start */
 div .forecast-card {
@@ -75,5 +53,31 @@ div .forecast-card {
 .card .card-content {
   padding: 12px;
 }
+/* forcast results styling end */
 
-/* forcast results styling start */
+/* weather results styling start */
+.city-name {
+  font-size: 75px;
+  margin: 0;
+  text-align: right;
+}
+
+.date {
+  margin: 0;
+  text-align: right;
+}
+
+/* .img-icon {
+  :;
+} */
+
+/* .main {
+  text-align: right;
+} */
+
+/* #weather-data-info {
+  margin-top: 10px;
+  font-size: 18px;
+} */
+/* .weather-data-img {
+} */

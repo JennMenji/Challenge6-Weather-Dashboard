@@ -18,6 +18,7 @@ var getWeatherData = function (city) {
         return response.json().then(function (data) {
           console.log(data);
           displayWeatherData(data);
+          getUv(data);
         });
       } else {
         alert("There is an error retrieving Weather Data");
@@ -28,23 +29,39 @@ var getWeatherData = function (city) {
     });
 };
 
-// // function to get UV Index
-// var getUv = function (weatherData) {
-//   var lat = weatherData.coord.lat;
-//   var lon = weatherData.coord.lon
+// function to get UV Index
+var getUv = function (weatherData) {
+  var lat = weatherData.coord.lat;
+  var lon = weatherData.coord.lon;
 
-//   var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" lat&lon={lon}&exclude={part}&appid=43cdeb3bdb5d7232fb98c9ed196e3be8"
-//   fetch
-//   //   var getUvIndex = cityData.???;
-//   //   var uvIndex = $("<span>").text("UV Index: " + getUvIndex);
-//   //   uvIndex.addClass("weather-detail");
-//   //   $("#weather-data-info").append(uvIndex);"
-// };
+  var apiUrl =
+    "https://api.openweathermap.org/data/2.5/onecall?lat=" +
+    lat +
+    "&lon=" +
+    lon +
+    "&exclude=minutely,hourly,daily,alerts&appid=43cdeb3bdb5d7232fb98c9ed196e3be8";
+
+  fetch(apiUrl)
+    .then(function (response) {
+      if (response.ok) {
+        return response.json().then(function (data) {
+          console.log(data);
+          displayUvData(data);
+        });
+      } else {
+        alert("Could not fetch UV Index");
+      }
+    })
+    .catch(function () {
+      alert("Unable to connect");
+    });
+};
 
 // function to display weather data
 var displayWeatherData = function (cityData) {
   $("#weather-data-main").html("");
   $("#weather-data-info").html("");
+  $("#weather-data-img").html("");
 
   // append City Name
   var getCityName = cityData.name;
@@ -59,16 +76,16 @@ var displayWeatherData = function (cityData) {
   $("#weather-data-main").append(date);
 
   //   append Weather Icon
-  var imgDiv = $("<div>");
-  imgDiv.addClass("icon-img");
-  $("#weather-data-main").append(imgDiv);
+  //   var imgDiv = $("<div>");
+  //   imgDiv.addClass("icon-img");
+  //   $("#weather-data-img").append(imgDiv);
 
   var getWeatherIconId = cityData.weather[0].icon;
   var iconUrl =
     "http://openweathermap.org/img/wn/" + getWeatherIconId + "@2x.png";
   var weatherIcon = $("<img>").attr("src", iconUrl);
-  weatherIcon.addClass("weather-detail main");
-  $(".icon-img").append(weatherIcon);
+  weatherIcon.addClass("weather-detail main img-icon");
+  $("#weather-data-main").append(weatherIcon);
 
   // append Description
   var getDescription = cityData.weather[0].description;
@@ -93,6 +110,22 @@ var displayWeatherData = function (cityData) {
   var windSpeed = $("<span>").text("Wind Speed: " + getWindSpeed + " MPH");
   windSpeed.addClass("weather-detail");
   $("#weather-data-info").append(windSpeed);
+};
+
+// append UV Index
+var displayUvData = function (uvDataCall) {
+  var getUvIndex = uvDataCall.current.uvi;
+  var uvIndex = $("<span>").text("UV Index: " + getUvIndex);
+
+  if (getUvIndex >= 2) {
+    uvIndex.addClass("weather-detail favorable");
+  } else if (getUvIndex >= 3 || getUvIndex >= 7) {
+    uvIndex.addClass("weather-detail moderate");
+  } else if (getUvIndex >= 8) {
+    uvIndex.addClass("weather-detail extreme");
+  }
+  //   append to page
+  $("#weather-data-info").append(uvIndex);
 };
 
 // function to get 5 Day Forecast
@@ -166,7 +199,7 @@ $("#city-form").submit(function (event) {
   getWeatherData(cityInput);
   getForecastData(cityInput);
   saveCities(cityInput);
-  //   createCityBtns(cityInput);
+  createCityBtns(cityInput);
 
   event.preventDefault();
   document.querySelector("#city-form").reset();
@@ -174,12 +207,9 @@ $("#city-form").submit(function (event) {
 
 // to get weather data based on search history buttons
 $("#search-history").on("click", ".city-btn", function (e) {
-  console.log(e.target.outerText);
-
-  //   var selectedCity = $(this).attr("data-city");
-  //   testing(selectedCity);
-  //   var citySelected = $("#city-btn").val().trim();
-  //   getWeatherData(cityInput);
+  var selectedCity = e.target.outerText;
+  getWeatherData(selectedCity);
+  getForecastData(selectedCity);
 });
 
 var testing = function (city) {
