@@ -61,7 +61,6 @@ var getUv = function (weatherData) {
 var displayWeatherData = function (cityData) {
   $("#weather-data-main").html("");
   $("#weather-data-info").html("");
-  $("#weather-data-img").html("");
 
   // append City Name
   var getCityName = cityData.name;
@@ -76,15 +75,11 @@ var displayWeatherData = function (cityData) {
   $("#weather-data-main").append(date);
 
   //   append Weather Icon
-  //   var imgDiv = $("<div>");
-  //   imgDiv.addClass("icon-img");
-  //   $("#weather-data-img").append(imgDiv);
-
   var getWeatherIconId = cityData.weather[0].icon;
   var iconUrl =
     "http://openweathermap.org/img/wn/" + getWeatherIconId + "@2x.png";
   var weatherIcon = $("<img>").attr("src", iconUrl);
-  weatherIcon.addClass("weather-detail main img-icon");
+  weatherIcon.addClass("weather-detail main img-icon right");
   $("#weather-data-main").append(weatherIcon);
 
   // append Description
@@ -115,14 +110,18 @@ var displayWeatherData = function (cityData) {
 // append UV Index
 var displayUvData = function (uvDataCall) {
   var getUvIndex = uvDataCall.current.uvi;
+  console.log(getUvIndex);
   var uvIndex = $("<span>").text("UV Index: " + getUvIndex);
 
-  if (getUvIndex >= 2) {
+  if (getUvIndex <= 2) {
     uvIndex.addClass("weather-detail favorable");
+    console.log("added1");
   } else if (getUvIndex >= 3 || getUvIndex >= 7) {
     uvIndex.addClass("weather-detail moderate");
+    console.log("added2");
   } else if (getUvIndex >= 8) {
     uvIndex.addClass("weather-detail extreme");
+    console.log("added3");
   }
   //   append to page
   $("#weather-data-info").append(uvIndex);

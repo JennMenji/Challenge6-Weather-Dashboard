@@ -44,6 +44,13 @@ h1 {
 }
 /* button styling end */
 
+/* uv index classed styling start*/
+.favorable {
+  color: white;
+  background-color: #2e7d32;
+  background-size: 50%;
+}
+
 /* forcast results styling start */
 div .forecast-card {
   padding: 0;
@@ -67,17 +74,16 @@ div .forecast-card {
   text-align: right;
 }
 
-/* .img-icon {
-  :;
-} */
+#weather-data-info {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  font-size: 18px;
+}
 
 /* .main {
   text-align: right;
 } */
 
-/* #weather-data-info {
-  margin-top: 10px;
-  font-size: 18px;
-} */
 /* .weather-data-img {
 } */
