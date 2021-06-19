@@ -16,12 +16,17 @@ var getWeatherData = function (city) {
       //   check to see if response is ok
       if (response.ok) {
         return response.json().then(function (data) {
-          console.log(data);
           displayWeatherData(data);
           getUv(data);
+
+          //   save city in search history
+          var saveCity = data.name;
+          saveCities(saveCity);
         });
       } else {
-        alert("There is an error retrieving Weather Data");
+        alert(
+          "There is an error retrieving Weather Data. Please enter a valid City name."
+        );
       }
     })
     .catch(function () {
@@ -45,7 +50,6 @@ var getUv = function (weatherData) {
     .then(function (response) {
       if (response.ok) {
         return response.json().then(function (data) {
-          console.log(data);
           displayUvData(data);
         });
       } else {
@@ -110,18 +114,14 @@ var displayWeatherData = function (cityData) {
 // append UV Index
 var displayUvData = function (uvDataCall) {
   var getUvIndex = uvDataCall.current.uvi;
-  console.log(getUvIndex);
   var uvIndex = $("<span>").text("UV Index: " + getUvIndex);
 
   if (getUvIndex <= 2) {
     uvIndex.addClass("weather-detail favorable");
-    console.log("added1");
   } else if (getUvIndex >= 3 || getUvIndex >= 7) {
     uvIndex.addClass("weather-detail moderate");
-    console.log("added2");
   } else if (getUvIndex >= 8) {
     uvIndex.addClass("weather-detail extreme");
-    console.log("added3");
   }
   //   append to page
   $("#weather-data-info").append(uvIndex);
@@ -142,7 +142,7 @@ var getForecastData = function (city) {
           displayForecastData(data);
         });
       } else {
-        alert("There is an error retrieving Weather Data");
+        return;
       }
     })
     .catch(function () {
@@ -155,9 +155,10 @@ var displayForecastData = function (forcastData) {
   console.log(forcastData);
 };
 
-var createCityBtns = function (savedCityName, cityIndex) {
+var createCityBtns = function (searchedCityName) {
   var cityBtn = document.createElement("button");
-  cityBtn.textContent = savedCityName;
+  cityBtn.textContent = searchedCityName;
+
   cityBtn.classList.add(
     "city-btn",
     "waves-effect",
@@ -166,17 +167,25 @@ var createCityBtns = function (savedCityName, cityIndex) {
     "col",
     "s12"
   );
-  cityBtn.setAttribute("data-city", cityIndex);
   cityBtn.setAttribute("type", "button");
   searchHistoryEl.appendChild(cityBtn);
 };
 
 var saveCities = function (city) {
+  console.log(city);
   cities.push(city);
 
   const filteredArr = cities.filter((item, i, arr) => arr.indexOf(item) === i);
-
   localStorage.setItem("cities", JSON.stringify(filteredArr));
+
+  for (var i = 0; i <= filteredArr.length; i++) {
+    if (city == filteredArr[i]) {
+      return;
+    } else {
+      createCityBtns(city);
+      return;
+    }
+  }
 };
 
 var loadSavedCities = function () {
@@ -187,7 +196,7 @@ var loadSavedCities = function () {
   } else {
     for (var i = 0; i < cities.length; i++) {
       var savedCityName = cities[i];
-      createCityBtns(savedCityName, [i]);
+      createCityBtns(savedCityName);
     }
   }
 };
@@ -197,9 +206,6 @@ $("#city-form").submit(function (event) {
   var cityInput = $("#city-input").val().trim();
   getWeatherData(cityInput);
   getForecastData(cityInput);
-  saveCities(cityInput);
-  createCityBtns(cityInput);
-
   event.preventDefault();
   document.querySelector("#city-form").reset();
 });
