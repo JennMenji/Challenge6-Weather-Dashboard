@@ -46,10 +46,17 @@ h1 {
 
 /* uv index classed styling start*/
 .favorable {
-  color: white;
-  background-color: #2e7d32;
-  background-size: 50%;
+  color: #2e7d32;
 }
+
+.moderate {
+  color: #ffc107;
+}
+
+.severe {
+  color: #bf360c;
+}
+/* uv index classed styling end*/
 
 /* forcast results styling start */
 div .forecast-card {
@@ -64,7 +71,7 @@ div .forecast-card {
 
 /* weather results styling start */
 .city-name {
-  font-size: 75px;
+  font-size: auto;
   margin: 0;
   text-align: right;
 }
@@ -77,8 +84,7 @@ div .forecast-card {
 #weather-data-info {
   display: flex;
   flex-direction: column;
-  margin-top: 10px;
-  font-size: 18px;
+  font-size: 17px;
 }
 
 /* .main {
