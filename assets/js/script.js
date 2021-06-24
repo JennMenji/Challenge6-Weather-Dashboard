@@ -1,5 +1,6 @@
 var cityFormEl = document.querySelector("#city-form");
 var searchHistoryEl = document.querySelector("#search-history");
+var forecastResultsEl = document.querySelector("#forecast-results");
 var cities = [];
 var forecastArr = [];
 
@@ -18,7 +19,6 @@ var getLatAndLon = function (city) {
           var name = data.name;
           var lat = data.coord.lat;
           var lon = data.coord.lon;
-          console.log(name);
           getWeatherData(name, lat, lon);
           //   //   getUv(data);
           //   //   valid city was searched therefore we can save city in search history
@@ -50,7 +50,6 @@ var getWeatherData = function (cityName, cityLat, cityLon) {
     .then(function (response) {
       if (response.ok) {
         return response.json().then(function (data) {
-          console.log(confrimCityName);
           displayWeatherData(confrimCityName, data);
           createForecastArry(data);
         });
@@ -132,6 +131,8 @@ var displayWeatherData = function (weatherCity, weatherData) {
 
 // function to narrow down only the five days needed for forecast
 var createForecastArry = function (forecastData) {
+  forecastArr = [];
+
   var nextDayForecast = forecastData.daily[1];
   forecastArr.push(nextDayForecast);
   var secondDayForecast = forecastData.daily[2];
@@ -148,23 +149,43 @@ var createForecastArry = function (forecastData) {
 
 // function to display Forcast data
 var displayForecastData = function (dailyForecastData) {
-  for (var i = 0; i < dailyForecastData.length; i++) {
-    console.log(dailyForecastData[i]);
+  forecastResultsEl.innerHTML = "";
 
-    // create date and append to forecast-results section
-    // var getDate = moment().add([++, "d").format("MMMM DD, YYYY");
-    // console.log(getDate);
-    // var date = $("<h4>").text(getDate);
-    // date.addClass("weather-detail main date");
-    // $("#weather-data-main").append(date);
+  console.log(dailyForecastData);
+  for (var i = 0; i < dailyForecastData.length; i++) {
+    var forecastCards = document.createElement("div");
+    forecastCards.className =
+      "card light-blue darken-4 forecast-card col s12 m6 l3 xl2";
+    forecastResultsEl.appendChild(forecastCards);
+
+    var cardContent = document.createElement("div");
+    cardContent.className = "forecast-data-info card-content white-text";
+    forecastCards.appendChild(cardContent);
+
+    var getForecastIcon = dailyForecastData[i].weather[0].icon;
+    var forecastIconUrl =
+      "http://openweathermap.org/img/wn/" + getForecastIcon + "@2x.png";
+    var forecastIcon = document.createElement("img");
+    forecastIcon.src = forecastIconUrl;
+    cardContent.appendChild(forecastIcon);
+
+    var forecastTemp = document.createElement("span");
+    forecastTemp.textContent =
+      "Temperature: " + dailyForecastData[i].temp.day + " \u00B0F";
+    cardContent.appendChild(forecastTemp);
+
+    var forecastHumidity = document.createElement("span");
+    forecastHumidity.textContent =
+      "Humidity: " + dailyForecastData[i].humidity + "%";
+    cardContent.appendChild(forecastHumidity);
+
+    var forecastWind = document.createElement("span");
+    forecastWind.textContent =
+      "Wind Speed: " + dailyForecastData[i].wind_speed + " MPH";
+    cardContent.appendChild(forecastWind);
   }
-  //   $("#weather-data-main").html("");
-  //   $("#weather-data-info").html("");
-  //   // get and append Date
-  //   var getDate = moment().format("MMMM DD, YYYY");
-  //   var date = $("<h4>").text(getDate);
-  //   date.addClass("weather-detail main date");
-  //   $("#weather-data-main").append(date);
+
+  //
   //   // get and append Weather Icon
   //   var getWeatherIconId = weatherData.current.weather[0].icon;
   //   var iconUrl =
@@ -172,27 +193,6 @@ var displayForecastData = function (dailyForecastData) {
   //   var weatherIcon = $("<img>").attr("src", iconUrl);
   //   weatherIcon.addClass("weather-detail main img-icon right");
   //   $("#weather-data-main").append(weatherIcon);
-  //   // get and append Description
-  //   var getDescription = weatherData.current.weather[0].description;
-  //   var description = $("<span>").text("Description: " + getDescription);
-  //   description.addClass("");
-  //   $("#weather-data-info").append(description);
-  //   // get and append Temp
-  //   var getCityTemp = weatherData.current.temp;
-  //   var cityTemp = $("<span>").text("Temperature: " + getCityTemp + " \u00B0F");
-  //   cityTemp.addClass("weather-detail");
-  //   $("#weather-data-info").append(cityTemp);
-  //   // get and append Humidity
-  //   var getHumidity = weatherData.current.humidity;
-  //   var humidity = $("<span>").text("Humidity: " + getHumidity + "%");
-  //   humidity.addClass("weather-detail");
-  //   $("#weather-data-info").append(humidity);
-  //   // get and append Wind Speed
-  //   var getWindSpeed = weatherData.wind_speed;
-  //   var windSpeed = $("<span>").text("Wind Speed: " + getWindSpeed + " MPH");
-  //   windSpeed.addClass("weather-detail");
-  //   $("#weather-data-info").append(windSpeed);
-  //   console.log(forecastData);
 };
 
 var createCityBtns = function (searchedCityName) {
@@ -245,7 +245,7 @@ var loadSavedCities = function () {
 $("#city-form").submit(function (event) {
   var cityInput = $("#city-input").val().trim();
   getLatAndLon(cityInput);
-  //   getForecastData(cityInput);
+
   event.preventDefault();
   document.querySelector("#city-form").reset();
 });
@@ -254,7 +254,6 @@ $("#city-form").submit(function (event) {
 $("#search-history").on("click", ".city-btn", function (e) {
   var selectedCity = e.target.outerText;
   getLatAndLon(selectedCity);
-  //   getForecastData(selectedCity);
 });
 
 loadSavedCities();
