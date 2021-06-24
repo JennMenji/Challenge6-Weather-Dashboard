@@ -19,6 +19,7 @@ var getLatAndLon = function (city) {
           var name = data.name;
           var lat = data.coord.lat;
           var lon = data.coord.lon;
+          console.log(data);
           getWeatherData(name, lat, lon);
           //   //   getUv(data);
           //   //   valid city was searched therefore we can save city in search history
@@ -87,6 +88,7 @@ var displayWeatherData = function (weatherCity, weatherData) {
   var iconUrl =
     "http://openweathermap.org/img/wn/" + getWeatherIconId + "@2x.png";
   var weatherIcon = $("<img>").attr("src", iconUrl);
+  weatherIcon.attr("id", "main-weather-icon");
   weatherIcon.addClass("weather-detail main img-icon right");
   $("#weather-data-main").append(weatherIcon);
 
@@ -153,15 +155,25 @@ var displayForecastData = function (dailyForecastData) {
 
   console.log(dailyForecastData);
   for (var i = 0; i < dailyForecastData.length; i++) {
+    // div to display forecast data
     var forecastCards = document.createElement("div");
     forecastCards.className =
-      "card light-blue darken-4 forecast-card col s12 m6 l3 xl2";
+      "card light-blue darken-4 forecast-card col s6 m5";
     forecastResultsEl.appendChild(forecastCards);
 
     var cardContent = document.createElement("div");
     cardContent.className = "forecast-data-info card-content white-text";
     forecastCards.appendChild(cardContent);
 
+    // display dates
+    var days = 1 + i;
+    var getForecastDate = moment().add(days, "days").format("MMMM DD, YYYY");
+    var forecastDate = document.createElement("h4");
+    forecastDate.className = "card-title forecast-detail forecast-date";
+    forecastDate.textContent = getForecastDate;
+    cardContent.appendChild(forecastDate);
+
+    // display icons
     var getForecastIcon = dailyForecastData[i].weather[0].icon;
     var forecastIconUrl =
       "http://openweathermap.org/img/wn/" + getForecastIcon + "@2x.png";
@@ -169,30 +181,24 @@ var displayForecastData = function (dailyForecastData) {
     forecastIcon.src = forecastIconUrl;
     cardContent.appendChild(forecastIcon);
 
+    // display temperatures
     var forecastTemp = document.createElement("span");
     forecastTemp.textContent =
-      "Temperature: " + dailyForecastData[i].temp.day + " \u00B0F";
+      "Temperature: " + dailyForecastData[i].temp.day + " \u00B0F ";
     cardContent.appendChild(forecastTemp);
 
+    // display humidity
     var forecastHumidity = document.createElement("span");
     forecastHumidity.textContent =
-      "Humidity: " + dailyForecastData[i].humidity + "%";
+      "Humidity: " + dailyForecastData[i].humidity + "% ";
     cardContent.appendChild(forecastHumidity);
 
+    // display wind speeds
     var forecastWind = document.createElement("span");
     forecastWind.textContent =
       "Wind Speed: " + dailyForecastData[i].wind_speed + " MPH";
     cardContent.appendChild(forecastWind);
   }
-
-  //
-  //   // get and append Weather Icon
-  //   var getWeatherIconId = weatherData.current.weather[0].icon;
-  //   var iconUrl =
-  //     "http://openweathermap.org/img/wn/" + getWeatherIconId + "@2x.png";
-  //   var weatherIcon = $("<img>").attr("src", iconUrl);
-  //   weatherIcon.addClass("weather-detail main img-icon right");
-  //   $("#weather-data-main").append(weatherIcon);
 };
 
 var createCityBtns = function (searchedCityName) {
@@ -212,7 +218,6 @@ var createCityBtns = function (searchedCityName) {
 };
 
 var saveCities = function (city) {
-  console.log(city);
   cities.push(city);
 
   const filteredArr = cities.filter((item, i, arr) => arr.indexOf(item) === i);
@@ -245,6 +250,7 @@ var loadSavedCities = function () {
 $("#city-form").submit(function (event) {
   var cityInput = $("#city-input").val().trim();
   getLatAndLon(cityInput);
+  saveCities(cityInput);
 
   event.preventDefault();
   document.querySelector("#city-form").reset();

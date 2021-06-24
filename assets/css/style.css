@@ -17,7 +17,6 @@ h1 {
 }
 
 .card .card-content .card-title {
-  /* display: block; */
   line-height: 32px;
   margin-bottom: 8px;
   margin-top: 0px;
@@ -58,21 +57,9 @@ h1 {
 }
 /* uv index classed styling end*/
 
-/* forcast results styling start */
-.forecast-card {
-  padding: 12px;
-  font-size: 14px;
-  display: block;
-}
-
-/* .card .card-content {
-  padding: 12px;
-} */
-/* forcast results styling end */
-
 /* weather results styling start */
 .city-name {
-  font-size: auto;
+  font-size: 85px;
   margin: 0;
   text-align: right;
 }
@@ -85,12 +72,62 @@ h1 {
 #weather-data-info {
   display: flex;
   flex-direction: column;
+  font-size: 22px;
+  margin: 5px 0 0 0;
+}
+
+/* weather results styling end */
+
+/* forcast results styling start */
+#forecast-results {
+  display: flex;
+  flex-wrap: wrap;
   font-size: 17px;
 }
 
-/* .main {
-  text-align: right;
-} */
+.card .card-content {
+  display: grid;
+}
+/* forcast results styling end */
 
-/* .weather-data-img {
-} */
+/* media query for tablets and smaller */
+@media screen and (max-width: 992px) {
+  .city-name {
+    font-size: 70px;
+    margin: 0;
+    text-align: right;
+  }
+
+  #weather-data-info {
+    display: flex;
+    flex-direction: column;
+    font-size: 18px;
+    margin: 5px 0 0 0;
+  }
+}
+
+/* media query for mobile phones and smaller */
+@media screen and (max-width: 600px) {
+  .city-name {
+    font-size: 70px;
+    margin: 20px 0 0 0;
+    text-align: center;
+  }
+
+  .date {
+    text-align: center;
+  }
+
+  #main-weather-icon {
+    margin-left: 40%;
+    margin-right: 40%;
+  }
+
+  #weather-data-info {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-size: 17px;
+  }
+}
+/* media query end */

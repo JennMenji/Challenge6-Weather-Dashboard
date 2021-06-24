@@ -16,8 +16,8 @@ This application is meant to apply the knowledge and skills acquired from workin
 
 ### Final Website Screenshot
 
-![Weather Dashboard Screenshot](Assets/images/screenshot.png)
+![Weather Dashboard Screenshot](./assets/images/screenshot.png)
 
 ### Website URL
 
-https://jennmenji.github.io/Challenge4-Coding-Quiz/
+https://jennmenji.github.io/Challenge6-Weather-Dashboard/
