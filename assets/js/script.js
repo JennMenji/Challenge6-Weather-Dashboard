@@ -9,7 +9,7 @@ var getLatAndLon = function (city) {
   var apiUrl =
     "https://api.openweathermap.org/data/2.5/weather?q=" +
     city +
-    "&units=imperial&appid=43cdeb3bdb5d7232fb98c9ed196e3be8";
+    "&units=imperial&appid=bcab55842bc467b9c3cfcd3820f806f7";
 
   fetch(apiUrl)
     .then(function (response) {
@@ -44,7 +44,7 @@ var getWeatherData = function (cityName, cityLat, cityLon) {
     cityLat +
     "&lon=" +
     cityLon +
-    "&exclude=minutely,hourly,alerts&units=imperial&appid=43cdeb3bdb5d7232fb98c9ed196e3be8";
+    "&exclude=minutely,hourly,alerts&units=imperial&appid=bcab55842bc467b9c3cfcd3820f806f7";
   var confrimCityName = cityName;
 
   fetch(apiUrl)
