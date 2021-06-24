@@ -7,7 +7,7 @@ var forecastArr = [];
 // function based on selected city to call API that has lat & lon coordinates neccesary to run main API
 var getLatAndLon = function (city) {
   var apiUrl =
-    "http://api.openweathermap.org/data/2.5/weather?q=" +
+    "https://api.openweathermap.org/data/2.5/weather?q=" +
     city +
     "&units=imperial&appid=43cdeb3bdb5d7232fb98c9ed196e3be8";
 
@@ -86,7 +86,7 @@ var displayWeatherData = function (weatherCity, weatherData) {
   // get and append Weather Icon
   var getWeatherIconId = weatherData.current.weather[0].icon;
   var iconUrl =
-    "http://openweathermap.org/img/wn/" + getWeatherIconId + "@2x.png";
+    "https://openweathermap.org/img/wn/" + getWeatherIconId + "@2x.png";
   var weatherIcon = $("<img>").attr("src", iconUrl);
   weatherIcon.attr("id", "main-weather-icon");
   weatherIcon.addClass("weather-detail main img-icon right");
@@ -176,7 +176,7 @@ var displayForecastData = function (dailyForecastData) {
     // display icons
     var getForecastIcon = dailyForecastData[i].weather[0].icon;
     var forecastIconUrl =
-      "http://openweathermap.org/img/wn/" + getForecastIcon + "@2x.png";
+      "https://openweathermap.org/img/wn/" + getForecastIcon + "@2x.png";
     var forecastIcon = document.createElement("img");
     forecastIcon.src = forecastIconUrl;
     cardContent.appendChild(forecastIcon);

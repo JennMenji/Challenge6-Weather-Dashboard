@@ -1,7 +1,5 @@
 # Challenge 6: Weather-Dashboard
 
-https://theconversation.com/how-world-war-i-changed-the-weather-for-good-74471
-
 ## Description
 
 This application is meant to apply the knowledge and skills acquired from working with JavaScript and Server-Side APIs to create a weather dashboard that can run in the browser and feature dynamically updated HTML and CSS. It's intended use is for travelers that want to see the weather outlook for multiple cities so that they may plan a trip accordingly.
